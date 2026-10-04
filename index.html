@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Official Agency Direct Rep Services | Social Media Recovery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base:    '#0B0F17',
+            surface: '#131822',
+            card:    '#1A2233',
+            border:  '#2A3550',
+            indigo:  { DEFAULT: '#6366F1', light: '#818CF8', glow: '#4F46E5' },
+            emerald: { DEFAULT: '#10B981', light: '#34D399', glow: '#059669' },
+          },
+          boxShadow: {
+            'glow-indigo': '0 0 20px rgba(99,102,241,0.35), 0 0 40px rgba(99,102,241,0.15)',
+            'glow-emerald': '0 0 20px rgba(16,185,129,0.35), 0 0 40px rgba(16,185,129,0.15)',
+            'glow-sm':  '0 0 10px rgba(99,102,241,0.25)',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Base ── */
+    * { box-sizing: border-box; }
+    body { background-color: #0B0F17; font-family: 'Inter', sans-serif; color: #E2E8F0; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #131822; }
+    ::-webkit-scrollbar-thumb { background: #2A3550; border-radius: 3px; }
+
+    /* ── Animated gradient background ── */
+    .hero-bg {
+      background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(99,102,241,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 40% at 90% 90%, rgba(16,185,129,0.10) 0%, transparent 60%),
+                  #0B0F17;
+    }
+
+    /* ── Grid noise texture overlay ── */
+    .noise-overlay {
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ── Glowing border cards ── */
+    .glow-card {
+      background: #1A2233;
+      border: 1px solid #2A3550;
+      border-radius: 16px;
+      transition: all 0.25s ease;
+    }
+    .glow-card:hover {
+      border-color: rgba(99,102,241,0.6);
+      box-shadow: 0 0 20px rgba(99,102,241,0.2), 0 4px 24px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+    .glow-card.selected {
+      border-color: #6366F1;
+      background: rgba(99,102,241,0.12);
+      box-shadow: 0 0 20px rgba(99,102,241,0.3), inset 0 0 20px rgba(99,102,241,0.05);
+    }
+    .glow-card.selected-emerald {
+      border-color: #10B981;
+      background: rgba(16,185,129,0.10);
+      box-shadow: 0 0 20px rgba(16,185,129,0.25), inset 0 0 20px rgba(16,185,129,0.05);
+    }
+
+    /* ── Step indicator ── */
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 2px solid #2A3550;
+      background: #131822;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative; z-index: 1;
+    }
+    .step-dot.active {
+      border-color: #6366F1;
+      background: #6366F1;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(99,102,241,0.5);
+    }
+    .step-dot.done {
+      border-color: #10B981;
+      background: #10B981;
+      color: #fff;
+    }
+    .step-line {
+      flex: 1; height: 2px;
+      background: #2A3550;
+      transition: background 0.4s ease;
+    }
+    .step-line.done { background: #10B981; }
+
+    /* ── Form inputs ── */
+    .form-input {
+      width: 100%;
+      background: #131822;
+      border: 1px solid #2A3550;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #E2E8F0;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #6366F1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .form-input::placeholder { color: #4B5563; }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+
+    /* ── Select ── */
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236366F1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 18px;
+      padding-right: 44px;
+      cursor: pointer;
+    }
+    select.form-input option { background: #1A2233; color: #E2E8F0; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: linear-gradient(135deg, #6366F1, #4F46E5);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 14px 28px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+      font-size: 15px;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 25px rgba(99,102,241,0.5);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      background: transparent;
+      color: #94A3B8;
+      border: 1px solid #2A3550;
+      border-radius: 12px;
+      padding: 13px 24px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      font-size: 15px;
+    }
+    .btn-secondary:hover { border-color: #4B5563; color: #E2E8F0; background: #1A2233; }
+
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 14px;
+      padding: 18px 32px;
+      border: none;
+      cursor: pointer;
+      font-size: 17px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    }
+    .btn-whatsapp:active { transform: translateY(0); }
+
+    /* ── Chip/Tag ── */
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
+      border-radius: 50px;
+      border: 1px solid #2A3550;
+      background: #131822;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #94A3B8;
+      font-weight: 500;
+    }
+    .chip:hover { border-color: #6366F1; color: #818CF8; }
+    .chip.active {
+      border-color: #6366F1;
+      background: rgba(99,102,241,0.15);
+      color: #818CF8;
+    }
+
+    /* ── Upload box ── */
+    .upload-box {
+      border: 2px dashed #2A3550;
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      background: #131822;
+    }
+    .upload-box:hover { border-color: #6366F1; background: rgba(99,102,241,0.05); }
+
+    /* ── Transitions ── */
+    .step-panel { animation: fadeSlideIn 0.35s ease; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .badge-indigo { background: rgba(99,102,241,0.15); color: #818CF8; border: 1px solid rgba(99,102,241,0.3); }
+    .badge-emerald { background: rgba(16,185,129,0.12); color: #34D399; border: 1px solid rgba(16,185,129,0.3); }
+
+    /* ── Pulse dot ── */
+    .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #10B981;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+    }
+
+    /* ── Validation error ── */
+    .field-error { color: #F87171; font-size: 12px; margin-top: 4px; }
+    .input-error { border-color: #F87171 !important; }
+
+    /* ── Summary preview card ── */
+    .summary-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #1E2A3A; }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-label { color: #64748B; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+    .summary-value { color: #E2E8F0; font-size: 13px; font-weight: 600; text-align: right; word-break: break-word; max-width: 60%; }
+
+    /* ── Neon text ── */
+    .neon-indigo { color: #818CF8; text-shadow: 0 0 20px rgba(99,102,241,0.5); }
+    .neon-emerald { color: #34D399; text-shadow: 0 0 20px rgba(16,185,129,0.5); }
+
+    /* ── Floating label helper ── */
+    label.field-label { display: block; font-size: 13px; font-weight: 500; color: #94A3B8; margin-bottom: 6px; }
+
+    /* ── Service card toggle ── */
+    .service-card {
+      border: 2px solid #2A3550;
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.25s;
+      border-radius: 14px;
+    }
+    .service-card.unban::before { background: radial-gradient(ellipse at top left, rgba(99,102,241,0.12), transparent); }
+    .service-card.ban::before   { background: radial-gradient(ellipse at top left, rgba(239,68,68,0.10), transparent); }
+    .service-card:hover::before, .service-card.selected-svc::before { opacity: 1; }
+    .service-card.selected-svc.unban { border-color: #6366F1; box-shadow: 0 0 20px rgba(99,102,241,0.25); }
+    .service-card.selected-svc.ban   { border-color: #EF4444; box-shadow: 0 0 20px rgba(239,68,68,0.2); }
+  </style>
+</head>
+<body class="min-h-screen hero-bg noise-overlay">
+
+  <!-- ════════════ HEADER / HERO ════════════ -->
+  <header class="relative overflow-hidden pt-14 pb-10 px-4 text-center">
+    <!-- Top bar -->
+    <div class="flex items-center justify-center gap-3 mb-8">
+      <div class="pulse-dot"></div>
+      <span class="badge badge-emerald">● Live Support Active</span>
+      <span class="badge badge-indigo">⚡ Fast-Track Tickets</span>
+    </div>
+
+    <!-- Logo / Brand -->
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center shadow-glow-indigo">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+      </div>
+      <div class="text-left">
+        <h1 class="text-xl font-black tracking-tight text-white">Official Agency</h1>
+        <p class="text-xs text-indigo-400 font-semibold tracking-widest uppercase">Direct Rep Services</p>
+      </div>
+    </div>
+
+    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 max-w-3xl mx-auto">
+      <span class="text-white">Social Media</span><br/>
+      <span class="neon-indigo">Recovery</span>
+      <span class="text-white"> & </span>
+      <span class="neon-emerald">Takedown</span>
+    </h2>
+
+    <p class="text-slate-400 text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+      Premium direct-rep solutions with <strong class="text-white">high success rates</strong>,
+      <strong class="text-white">fast turnarounds</strong>, and verified agency access across all major platforms.
+    </p>
+
+    <!-- Stats row -->
+    <div class="flex flex-wrap justify-center gap-6 mb-6">
+      <div class="text-center">
+        <div class="text-2xl font-black neon-indigo">97%</div>
+        <div class="text-xs text-slate-500 font-medium mt-0.5">Success Rate</div>
+      </div>
+      <div class="w-px bg-slate-800 self-stretch"></div>
+      <div class="text-center">
+        <div class="text-2xl font-black neon-emerald">24–72h</div>
+        <div class="text-xs text-slate-500 font-medium mt-0.5">Avg. Resolution</div>
+      </div>
+      <div class="w-px bg-slate-800 self-stretch"></div>
+      <div class="text-center">
+        <div class="text-2xl font-black text-white">5K+</div>
+        <div class="text-xs text-slate-500 font-medium mt-0.5">Cases Resolved</div>
+      </div>
+      <div class="w-px bg-slate-800 self-stretch"></div>
+      <div class="text-center">
+        <div class="text-2xl font-black text-white">6</div>
+        <div class="text-xs text-slate-500 font-medium mt-0.5">Platforms</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════════════ MAIN FORM CONTAINER ════════════ -->
+  <main class="max-w-2xl mx-auto px-4 pb-24">
+
+    <!-- ── Step Progress Bar ── -->
+    <div class="flex items-center gap-0 mb-10" id="stepProgress">
+      <div class="step-dot active" id="sdot-1">1</div>
+      <div class="step-line"      id="sline-1"></div>
+      <div class="step-dot"       id="sdot-2">2</div>
+      <div class="step-line"      id="sline-2"></div>
+      <div class="step-dot"       id="sdot-3">3</div>
+      <div class="step-line"      id="sline-3"></div>
+      <div class="step-dot"       id="sdot-4">4</div>
+      <div class="step-line"      id="sline-4"></div>
+      <div class="step-dot"       id="sdot-5">5</div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 1 — Platform Selection
+    ══════════════════════════════════ -->
+    <div id="step-1" class="step-panel">
+      <div class="glow-card p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-white mb-1">Select Platform</h3>
+        <p class="text-slate-500 text-sm mb-6">Choose the platform you need assistance with.</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="platformGrid">
+          <!-- Cards injected by JS -->
+        </div>
+
+        <p class="text-red-400 text-xs mt-3 hidden" id="platform-err">⚠ Please select a platform to continue.</p>
+
+        <div class="flex justify-end mt-8">
+          <button class="btn-primary" onclick="nextStep(1)">
+            Continue <span class="ml-1">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 2 — Service Type
+    ══════════════════════════════════ -->
+    <div id="step-2" class="step-panel hidden">
+      <div class="glow-card p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-white mb-1">Service Type</h3>
+        <p class="text-slate-500 text-sm mb-6">What kind of service do you need?</p>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+
+          <!-- Unban Card -->
+          <div class="service-card unban" id="svc-unban" onclick="selectService('unban')">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="font-bold text-white text-sm mb-1">Paid Unban / Recovery</div>
+            <div class="text-xs text-slate-500 leading-relaxed">Restore your banned, disabled, or locked account via our direct platform representatives.</div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="badge badge-indigo">Recovery</span>
+              <span class="text-xs text-slate-600">Restore Access</span>
+            </div>
+          </div>
+
+          <!-- Ban Card -->
+          <div class="service-card ban" id="svc-ban" onclick="selectService('ban')">
+            <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+              </svg>
+            </div>
+            <div class="font-bold text-white text-sm mb-1">Paid Ban / Takedown</div>
+            <div class="text-xs text-slate-500 leading-relaxed">Request removal of fake accounts, defamatory content, or copyright-infringing profiles.</div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/25">Takedown</span>
+              <span class="text-xs text-slate-600">Remove Content</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-red-400 text-xs mt-3 hidden" id="svc-err">⚠ Please select a service type.</p>
+
+        <div class="flex justify-between mt-8">
+          <button class="btn-secondary" onclick="prevStep(2)">← Back</button>
+          <button class="btn-primary"   onclick="nextStep(2)">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 3 — Category / Reason
+    ══════════════════════════════════ -->
+    <div id="step-3" class="step-panel hidden">
+      <div class="glow-card p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-white mb-1" id="step3-title">Select Reason / Category</h3>
+        <p class="text-slate-500 text-sm mb-6" id="step3-sub">Tell us more so we can match the right rep.</p>
+
+        <!-- Unban reasons -->
+        <div id="unban-reasons" class="hidden">
+          <label class="field-label">Ban / Restriction Reason</label>
+          <select class="form-input" id="unban-select">
+            <option value="">— Select reason —</option>
+            <option value="Copyright / Trademark / IP Infringement">Copyright / Trademark / IP Infringement</option>
+            <option value="Impersonation (Fake Account / Nudity False Report)">Impersonation (Fake Account / Nudity False Report)</option>
+            <option value="Terms of Service / Community Guidelines Violation">Terms of Service / Community Guidelines Violation</option>
+            <option value="Permanent Disabled / Non-Appealable 180-day Lock">Permanent Disabled / Non-Appealable 180-day Lock</option>
+            <option value="Artificial / Bot Activity / Integrity Ban">Artificial / Bot Activity / Integrity Ban</option>
+            <option value="Other / Unknown Reason">Other / Unknown Reason</option>
+          </select>
+        </div>
+
+        <!-- Ban / Takedown reasons -->
+        <div id="ban-reasons" class="hidden">
+          <label class="field-label">Takedown Target / Reason</label>
+          <div class="flex flex-wrap gap-2 mt-2" id="banChips">
+            <button class="chip" data-val="Fake Profile / Impersonator"     onclick="selectChip(this)">👤 Fake Profile / Impersonator</button>
+            <button class="chip" data-val="Defamation / Harassment"         onclick="selectChip(this)">🚨 Defamation / Harassment</button>
+            <button class="chip" data-val="Trademark / Copyright Violation"  onclick="selectChip(this)">™ Trademark / Copyright Violation</button>
+          </div>
+        </div>
+
+        <p class="text-red-400 text-xs mt-3 hidden" id="reason-err">⚠ Please select a reason / category.</p>
+
+        <div class="flex justify-between mt-8">
+          <button class="btn-secondary" onclick="prevStep(3)">← Back</button>
+          <button class="btn-primary"   onclick="nextStep(3)">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 4 — Target & Client Details
+    ══════════════════════════════════ -->
+    <div id="step-4" class="step-panel hidden">
+      <div class="glow-card p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-white mb-1">Account Details</h3>
+        <p class="text-slate-500 text-sm mb-6">Provide accurate information to fast-track your ticket.</p>
+
+        <div class="space-y-5">
+
+          <!-- Target Username/Link -->
+          <div>
+            <label class="field-label" for="targetUsername">
+              Target Username / Profile URL <span class="text-red-400">*</span>
+            </label>
+            <input type="text" id="targetUsername" class="form-input"
+              placeholder="e.g. @username or https://instagram.com/username" />
+            <p class="field-error hidden" id="err-username">⚠ This field is required.</p>
+          </div>
+
+          <!-- Email / Phone -->
+          <div>
+            <label class="field-label" for="accountContact">
+              Associated Account Email / Phone <span class="text-slate-600 font-normal">(optional)</span>
+            </label>
+            <input type="text" id="accountContact" class="form-input"
+              placeholder="e.g. user@email.com or +1 234 567 8900" />
+          </div>
+
+          <!-- Status / Error Notice -->
+          <div>
+            <label class="field-label" for="statusText">
+              Current Account Status / Error Message <span class="text-red-400">*</span>
+            </label>
+            <textarea id="statusText" class="form-input" rows="3"
+              placeholder="Paste the exact error message or describe the current account status..."></textarea>
+            <p class="field-error hidden" id="err-status">⚠ Please describe the account status.</p>
+          </div>
+
+          <!-- Screenshot Upload -->
+          <div>
+            <label class="field-label">Screenshot / Evidence</label>
+            <div class="upload-box" onclick="document.getElementById('screenshotInput').click()">
+              <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center mx-auto mb-3">
+                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <p class="text-slate-400 text-sm font-medium">Click to browse</p>
+              <p class="text-slate-600 text-xs mt-1">PNG, JPG, WEBP — Max 10MB</p>
+              <p id="fileName" class="text-indigo-400 text-xs mt-2 hidden font-medium"></p>
+            </div>
+            <input type="file" id="screenshotInput" accept="image/*" class="hidden" onchange="handleFileSelect(this)" />
+
+            <!-- Note box -->
+            <div class="mt-3 flex gap-3 items-start bg-amber-500/8 border border-amber-500/20 rounded-10 p-3 rounded-xl">
+              <span class="text-amber-400 text-lg leading-none mt-0.5">📎</span>
+              <p class="text-amber-400/80 text-xs leading-relaxed">
+                <strong class="text-amber-400">Note:</strong> Screenshots cannot be sent via URL link.
+                Please attach your screenshot <strong>directly in the WhatsApp chat</strong> after clicking "Proceed to WhatsApp" below.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button class="btn-secondary" onclick="prevStep(4)">← Back</button>
+          <button class="btn-primary"   onclick="nextStep(4)">Review & Submit →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         STEP 5 — Review & WhatsApp Submit
+    ══════════════════════════════════ -->
+    <div id="step-5" class="step-panel hidden">
+      <div class="glow-card p-6 sm:p-8">
+
+        <!-- Header -->
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Review Your Ticket</h3>
+            <p class="text-slate-500 text-sm">Confirm details before sending.</p>
+          </div>
+        </div>
+
+        <!-- Summary Table -->
+        <div class="bg-[#0F1520] rounded-xl p-4 mb-6 border border-[#1E2A3A]" id="summaryTable">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- WhatsApp preview snippet -->
+        <div class="bg-[#0F1520] rounded-xl border border-emerald-500/20 p-4 mb-6">
+          <p class="text-emerald-400 text-xs font-semibold mb-2 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.533 5.849L.057 23.486a.5.5 0 00.609.609l5.637-1.476A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.638-.515-5.14-1.41l-.368-.214-3.812.999 1.016-3.712-.233-.38A9.956 9.956 0 012 12C2 6.478 6.477 2 12 2s10 4.478 10 10-4.477 10-10 10z"/></svg>
+            Message Preview
+          </p>
+          <pre id="msgPreview" class="text-slate-400 text-xs leading-relaxed whitespace-pre-wrap font-mono break-words"></pre>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="flex gap-3 items-start bg-indigo-500/8 border border-indigo-500/20 rounded-xl p-4 mb-6">
+          <span class="text-indigo-400 text-sm mt-0.5">ℹ</span>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            By proceeding, you confirm all provided information is accurate. Our representative will respond on WhatsApp within
+            <strong class="text-white">1–3 hours</strong> to verify, quote, and begin your ticket.
+          </p>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="space-y-3">
+          <button class="btn-whatsapp" onclick="submitToWhatsApp()">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.533 5.849L.057 23.486a.5.5 0 00.609.609l5.637-1.476A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.638-.515-5.14-1.41l-.368-.214-3.812.999 1.016-3.712-.233-.38A9.956 9.956 0 012 12C2 6.478 6.477 2 12 2s10 4.478 10 10-4.477 10-10 10z"/>
+            </svg>
+            Proceed to WhatsApp to Confirm Ticket
+          </button>
+          <button class="btn-secondary w-full" onclick="prevStep(5)">← Edit Details</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         Trust Badges (below form)
+    ══════════════════════════════════ -->
+    <div class="mt-10 grid grid-cols-3 gap-3 text-center">
+      <div class="glow-card p-4">
+        <div class="text-2xl mb-1">🔒</div>
+        <div class="text-xs text-slate-400 font-medium">Secure &amp; Private</div>
+      </div>
+      <div class="glow-card p-4">
+        <div class="text-2xl mb-1">⚡</div>
+        <div class="text-xs text-slate-400 font-medium">Fast Processing</div>
+      </div>
+      <div class="glow-card p-4">
+        <div class="text-2xl mb-1">✅</div>
+        <div class="text-xs text-slate-400 font-medium">Verified Agency</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ════════════ FOOTER ════════════ -->
+  <footer class="text-center py-8 border-t border-slate-800/60 mt-4">
+    <p class="text-slate-600 text-xs">© 2025 Official Agency Direct Rep Services. All rights reserved.</p>
+    <p class="text-slate-700 text-xs mt-1">Results vary. We operate as a third-party agency service.</p>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════ -->
+  <script>
+    /* ══════════════════════════════════════════
+       CONFIG — Edit phone number here
+    ══════════════════════════════════════════ */
+    const WHATSAPP_NUMBER = "+923342463459"; // No spaces, include country code
+
+    /* ══════════════════════════════════════════
+       STATE
+    ══════════════════════════════════════════ */
+    let state = {
+      platform:  null,
+      service:   null,   // 'unban' | 'ban'
+      reason:    null,
+      username:  '',
+      contact:   '',
+      status:    '',
+      fileName:  '',
+    };
+
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    /* ══════════════════════════════════════════
+       PLATFORM DATA
+    ══════════════════════════════════════════ */
+    const platforms = [
+      {
+        id: 'Instagram',
+        emoji: null,
+        svg: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none">
+          <defs><linearGradient id="ig" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/>
+            <stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/>
+            <stop offset="100%" stop-color="#bc1888"/>
+          </linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="url(#ig)"/>
+          <path d="M12 7a5 5 0 100 10A5 5 0 0012 7zm0 8.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7zm5.25-9.25a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5z" fill="white"/>
+        </svg>`,
+        color: '#E1306C'
+      },
+      {
+        id: 'Facebook',
+        svg: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="#1877F2">
+          <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.031 4.388 11.031 10.125 11.927v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796v8.437C19.612 23.104 24 18.104 24 12.073z"/>
+        </svg>`,
+        color: '#1877F2'
+      },
+      {
+        id: 'TikTok',
+        svg: `<svg class="w-8 h-8" viewBox="0 0 24 24">
+          <rect width="24" height="24" rx="6" fill="#010101"/>
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z" fill="white"/>
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z" fill="url(#ttGrad)" style="opacity:0.6"/>
+          <defs><linearGradient id="ttGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#69C9D0"/><stop offset="100%" stop-color="#EE1D52"/></linearGradient></defs>
+        </svg>`,
+        color: '#EE1D52'
+      },
+      {
+        id: 'WhatsApp',
+        svg: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="#25D366">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.533 5.849L.057 23.486a.5.5 0 00.609.609l5.637-1.476A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.88 0-3.638-.515-5.14-1.41l-.368-.214-3.812.999 1.016-3.712-.233-.38A9.956 9.956 0 012 12C2 6.478 6.477 2 12 2s10 4.478 10 10-4.477 10-10 10z"/>
+        </svg>`,
+        color: '#25D366'
+      },
+      {
+        id: 'Snapchat',
+        svg: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="#FFFC00">
+          <path d="M12.166.012C6.947-.162 2.658 3.993 2.5 9.212v.5c0 .868.072 1.726.215 2.574-.28.13-.59.2-.905.207-.42 0-.833-.104-1.21-.302-.13-.067-.26-.1-.4-.1a.72.72 0 00-.496.197.702.702 0 00-.2.524c.04.514.487.94 1.33 1.265.13.05.26.1.37.14.55.195.927.34 1.066.59.06.11.065.226.024.354C2.05 15.663.46 16.43.03 17.19a.73.73 0 00.36 1.007c.65.26 1.32.424 2.006.488.065.376.26.718.56.965.36.283.832.353 1.256.183.35-.138.706-.234 1.072-.287.397-.055.8.03 1.134.24.602.39 1.18.816 1.726 1.275.76.645 1.666 1.044 2.626 1.16a5.38 5.38 0 00.6.036c.193 0 .388-.012.578-.036.957-.116 1.863-.515 2.624-1.16.546-.46 1.125-.887 1.726-1.275a2.65 2.65 0 011.14-.24c.368.053.725.15 1.072.287.424.17.896.1 1.256-.183.3-.247.496-.59.56-.965.687-.064 1.358-.228 2.007-.488a.73.73 0 00.36-1.007c-.43-.76-2.02-1.527-2.264-2.026-.04-.128-.035-.244.024-.354.14-.25.516-.395 1.067-.59.11-.04.24-.09.37-.14.842-.324 1.29-.75 1.33-1.265a.702.702 0 00-.2-.524.72.72 0 00-.495-.197c-.14 0-.27.033-.4.1-.377.198-.79.302-1.21.302-.315-.007-.625-.078-.905-.207.143-.848.215-1.706.215-2.574v-.5C21.342 3.992 17.052-.163 11.834.012h.332z"/>
+        </svg>`,
+        color: '#FFFC00'
+      },
+      {
+        id: 'X (Twitter)',
+        svg: `<svg class="w-7 h-7" viewBox="0 0 24 24" fill="white">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>`,
+        color: '#E7E9EA'
+      },
+    ];
+
+    /* ══════════════════════════════════════════
+       INIT — Render platform grid
+    ══════════════════════════════════════════ */
+    function initPlatformGrid() {
+      const grid = document.getElementById('platformGrid');
+      platforms.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'glow-card p-4 flex flex-col items-center gap-2 cursor-pointer select-none';
+        div.dataset.platform = p.id;
+        div.innerHTML = `
+          <div class="w-14 h-14 rounded-2xl bg-[#0F1520] flex items-center justify-center shadow-lg border border-[#1E2A3A]">
+            ${p.svg}
+          </div>
+          <span class="text-xs font-semibold text-slate-300">${p.id}</span>
+        `;
+        div.addEventListener('click', () => selectPlatform(p.id, div));
+        grid.appendChild(div);
+      });
+    }
+
+    function selectPlatform(id, el) {
+      document.querySelectorAll('#platformGrid .glow-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      state.platform = id;
+      document.getElementById('platform-err').classList.add('hidden');
+    }
+
+    /* ══════════════════════════════════════════
+       SERVICE TYPE
+    ══════════════════════════════════════════ */
+    function selectService(type) {
+      state.service = type;
+      state.reason  = null; // reset reason when service changes
+
+      document.getElementById('svc-unban').classList.remove('selected-svc');
+      document.getElementById('svc-ban').classList.remove('selected-svc');
+      document.getElementById('svc-' + type).classList.add('selected-svc');
+      document.getElementById('svc-err').classList.add('hidden');
+    }
+
+    /* ══════════════════════════════════════════
+       CHIP SELECT (Ban reasons)
+    ══════════════════════════════════════════ */
+    function selectChip(el) {
+      document.querySelectorAll('#banChips .chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      state.reason = el.dataset.val;
+      document.getElementById('reason-err').classList.add('hidden');
+    }
+
+    /* ══════════════════════════════════════════
+       FILE SELECT
+    ══════════════════════════════════════════ */
+    function handleFileSelect(input) {
+      if (input.files && input.files[0]) {
+        const f = input.files[0];
+        state.fileName = f.name;
+        const el = document.getElementById('fileName');
+        el.textContent = '📎 ' + f.name;
+        el.classList.remove('hidden');
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       STEP 3 DYNAMIC CONTENT
+    ══════════════════════════════════════════ */
+    function renderStep3() {
+      const unbanEl = document.getElementById('unban-reasons');
+      const banEl   = document.getElementById('ban-reasons');
+
+      if (state.service === 'unban') {
+        unbanEl.classList.remove('hidden');
+        banEl.classList.add('hidden');
+        document.getElementById('step3-title').textContent = 'Ban / Restriction Reason';
+        document.getElementById('step3-sub').textContent   = 'Select the reason your account was restricted.';
+      } else {
+        banEl.classList.remove('hidden');
+        unbanEl.classList.add('hidden');
+        document.getElementById('step3-title').textContent = 'Takedown Target';
+        document.getElementById('step3-sub').textContent   = 'Select the type of content or account to remove.';
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       STEP 5 — RENDER SUMMARY
+    ══════════════════════════════════════════ */
+    function renderSummary() {
+      const svcLabel = state.service === 'unban'
+        ? '🔓 Paid Unban / Recovery'
+        : '🚫 Paid Ban / Takedown Request';
+
+      const rows = [
+        ['Platform',        state.platform],
+        ['Service',         svcLabel],
+        ['Reason / Target', state.reason],
+        ['Username / URL',  state.username],
+        ['Contact (opt.)',  state.contact || '—'],
+        ['Account Status',  state.status],
+        ['Screenshot',      state.fileName || 'Will attach in WhatsApp'],
+      ];
+
+      document.getElementById('summaryTable').innerHTML = rows.map(([l, v]) => `
+        <div class="summary-row">
+          <span class="summary-label">${l}</span>
+          <span class="summary-value">${escHtml(v)}</span>
+        </div>
+      `).join('');
+
+      // Message preview
+      document.getElementById('msgPreview').textContent = buildMessage();
+    }
+
+    /* ══════════════════════════════════════════
+       BUILD WHATSAPP MESSAGE
+    ══════════════════════════════════════════ */
+    function buildMessage() {
+      const now = new Date();
+      const ts  = now.toLocaleString('en-PK', { dateStyle: 'medium', timeStyle: 'short' });
+      const svcLabel = state.service === 'unban'
+        ? 'Paid Unban / Account Recovery'
+        : 'Paid Ban / Takedown Request';
+
+      return `━━━━━━━━━━━━━━━━━━━━━━
+🛡️ OFFICIAL AGENCY — NEW TICKET
+━━━━━━━━━━━━━━━━━━━━━━
+
+📌 Platform:        ${state.platform}
+🔧 Service Type:    ${svcLabel}
+📂 Reason/Target:   ${state.reason}
+
+👤 Username / URL:  ${state.username}
+📧 Contact (opt.):  ${state.contact || 'N/A'}
+
+📋 Account Status:
+${state.status}
+
+📎 Screenshot:  Will be attached in this chat.
+
+🕐 Submitted:   ${ts}
+━━━━━━━━━━━━━━━━━━━━━━
+Please confirm receipt and begin processing. Thank you.`;
+    }
+
+    /* ══════════════════════════════════════════
+       WHATSAPP SUBMIT
+    ══════════════════════════════════════════ */
+    function submitToWhatsApp() {
+      const msg      = buildMessage();
+      const encoded  = encodeURIComponent(msg);
+      const phone    = WHATSAPP_NUMBER.replace(/\D/g, ''); // strip non-digits
+      const url      = `https://wa.me/${phone}?text=${encoded}`;
+      window.open(url, '_blank');
+    }
+
+    /* ══════════════════════════════════════════
+       NAVIGATION
+    ══════════════════════════════════════════ */
+    function nextStep(from) {
+      if (!validateStep(from)) return;
+
+      // Collect state from current step
+      if (from === 3) {
+        if (state.service === 'unban') {
+          state.reason = document.getElementById('unban-select').value;
+        }
+        // ban chip already set in selectChip()
+      }
+      if (from === 4) {
+        state.username = document.getElementById('targetUsername').value.trim();
+        state.contact  = document.getElementById('accountContact').value.trim();
+        state.status   = document.getElementById('statusText').value.trim();
+      }
+
+      goToStep(from + 1);
+    }
+
+    function prevStep(from) {
+      goToStep(from - 1);
+    }
+
+    function goToStep(n) {
+      // Hide all
+      for (let i = 1; i <= totalSteps; i++) {
+        document.getElementById('step-' + i).classList.add('hidden');
+      }
+      // Show target
+      const panel = document.getElementById('step-' + n);
+      panel.classList.remove('hidden');
+
+      // Special actions
+      if (n === 3) renderStep3();
+      if (n === 5) renderSummary();
+
+      currentStep = n;
+      updateProgressBar();
+
+      // Smooth scroll to top of form
+      window.scrollTo({ top: document.querySelector('main').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    /* ══════════════════════════════════════════
+       VALIDATION
+    ══════════════════════════════════════════ */
+    function validateStep(step) {
+      if (step === 1) {
+        if (!state.platform) {
+          document.getElementById('platform-err').classList.remove('hidden');
+          return false;
+        }
+      }
+      if (step === 2) {
+        if (!state.service) {
+          document.getElementById('svc-err').classList.remove('hidden');
+          return false;
+        }
+      }
+      if (step === 3) {
+        let reason = null;
+        if (state.service === 'unban') {
+          reason = document.getElementById('unban-select').value;
+        } else {
+          reason = state.reason; // chip
+        }
+        if (!reason) {
+          document.getElementById('reason-err').classList.remove('hidden');
+          return false;
+        }
+        state.reason = reason;
+      }
+      if (step === 4) {
+        let ok = true;
+        const username = document.getElementById('targetUsername').value.trim();
+        const status   = document.getElementById('statusText').value.trim();
+
+        if (!username) {
+          document.getElementById('err-username').classList.remove('hidden');
+          document.getElementById('targetUsername').classList.add('input-error');
+          ok = false;
+        } else {
+          document.getElementById('err-username').classList.add('hidden');
+          document.getElementById('targetUsername').classList.remove('input-error');
+        }
+        if (!status) {
+          document.getElementById('err-status').classList.remove('hidden');
+          document.getElementById('statusText').classList.add('input-error');
+          ok = false;
+        } else {
+          document.getElementById('err-status').classList.add('hidden');
+          document.getElementById('statusText').classList.remove('input-error');
+        }
+        return ok;
+      }
+      return true;
+    }
+
+    /* ══════════════════════════════════════════
+       PROGRESS BAR
+    ══════════════════════════════════════════ */
+    function updateProgressBar() {
+      for (let i = 1; i <= totalSteps; i++) {
+        const dot  = document.getElementById('sdot-' + i);
+        if (i < currentStep) {
+          dot.className = 'step-dot done';
+          dot.innerHTML = '✓';
+        } else if (i === currentStep) {
+          dot.className = 'step-dot active';
+          dot.innerHTML = i;
+        } else {
+          dot.className = 'step-dot';
+          dot.innerHTML = i;
+        }
+        // Lines (between dots)
+        if (i < totalSteps) {
+          const line = document.getElementById('sline-' + i);
+          line.className = i < currentStep ? 'step-line done' : 'step-line';
+        }
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       UTILITY
+    ══════════════════════════════════════════ */
+    function escHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* ══════════════════════════════════════════
+       BOOT
+    ══════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', () => {
+      initPlatformGrid();
+      updateProgressBar();
+    });
+  </script>
+</body>
+</html>
